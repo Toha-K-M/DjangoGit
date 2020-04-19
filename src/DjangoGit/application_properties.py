@@ -1,0 +1,5 @@
+DATABASE_HOST="localhost"
+DATABASE_NAME="django_git"
+DATABASE_USER ="django_git"
+DATABASE_PASSWORD = '1234'
+PORT='5433'
