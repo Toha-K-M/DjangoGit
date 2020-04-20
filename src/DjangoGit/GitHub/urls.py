@@ -1,6 +1,10 @@
 from django.urls import path
 from django.conf.urls import include,url
-from .views.HomeView import HomeView
+from .views import HomeView, GithubView
+
 urlpatterns = [
-    path('', HomeView, name='home'),
+    path('', HomeView.Home, name='home'),
+    path('git/', GithubView.git_authorize, name='git'),
+    path('git/redirect/', GithubView.store_oauth, name='git_redirect'),
+    path('git_repositories/', GithubView.public_repos, name='git_public_repos')
 ]

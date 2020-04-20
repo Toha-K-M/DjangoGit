@@ -7,8 +7,6 @@ A. Run the following commands in the project root directory
 3. cd src
 4. pip install -r requirements.txt
 
-
-
 B. Setup Database (PostgreSQL): Create a role and a database and set all privileges to the role
 
 1. db name = django_git
