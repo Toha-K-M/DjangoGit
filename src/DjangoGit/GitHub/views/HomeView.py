@@ -4,7 +4,8 @@ from ..services import Gitoauth
 # Create your views here.
 def Home(request):
     if request.user.is_authenticated:
-        is_linked = Gitoauth.access_token_is_valid.execute(request, {"current_user":request.user})
+
+        is_linked = Gitoauth.AccessTokenIsValid.execute(request, {"current_user":request.user})
         if is_linked:
             return redirect('git_public_repos')
         else:

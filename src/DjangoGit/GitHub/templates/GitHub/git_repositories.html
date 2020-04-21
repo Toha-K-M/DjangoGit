@@ -1,1 +1,40 @@
-Here git public repos will be displayed
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    <title>Public Repositories</title>
+{% endblock %}
+
+{% block body %}
+  {% if not error_status_code %}
+    <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">GitHub Public Repositories</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td><a href={{item.html_url}} target="_blank" class="text-success">{{item.name}}</td>
+            <td>
+                <form method="POST" action="/selected_repo/">
+                {% csrf_token %}
+                <input type="hidden" name="selected_repo" value="{{item}}">
+                <button class="btn btn-danger" type="submit">Select</button>
+                </form>
+            </td>
+          </tr>
+        {%endfor%}
+        </tbody>
+      </table>
+  {% else %}
+      <br/>
+      <h1 class="text-danger"> Unable to fetch data. Error : {{error_status_code}}</h1>
+  {% endif %}
+
+
+{% endblock %}
+

@@ -8,7 +8,7 @@ from ... import application_properties
 
 logger = logging.getLogger("error_logger")
 
-class access_token_is_valid(Service):
+class AccessTokenIsValid(Service):
     def service_clean(self):
         current_user = self.files.get("current_user")
         if current_user is None or current_user.is_authenticated is False:
@@ -32,7 +32,7 @@ class access_token_is_valid(Service):
             logger.error(repr(e))
             return None
 
-class get_access_token(Service):
+class GetAccessToken(Service):
     def service_clean(self):
         current_user = self.files.get("current_user")
         if current_user is None or current_user.is_authenticated is False:
@@ -42,10 +42,11 @@ class get_access_token(Service):
         try:
             current_user = self.files.get("current_user")
 
-            def save_current_user_oauth(response):
+            def save_current_user_oauth(response, git_username):
                 current_user.gitprofile.access_token = response['access_token']
                 current_user.gitprofile.token_type = response['token_type']  
-                current_user.gitprofile.scope = response['scope']      
+                current_user.gitprofile.scope = response['scope']    
+                current_user.gitprofile.git_username = git_username  
                 current_user.save()
 
             url = "https://github.com/login/oauth/access_token"
@@ -57,9 +58,13 @@ class get_access_token(Service):
             }
             headers = {'Accept': 'application/json'}
             response = requests.post(url, payload, headers=headers).json()
-            
-            save_current_user_oauth(response)
 
+            api = 'https://api.github.com/user'
+            access_token = response['access_token']
+            print(response['access_token'])
+            git_user = requests.get(api, headers={'Authorization': 'token '+access_token}).json()
+            save_current_user_oauth(response, git_user['login'])
+            
             return True
 
         except Exception as e:

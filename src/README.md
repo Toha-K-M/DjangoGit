@@ -21,3 +21,6 @@ C. Run db migration:
 
 
 D: Run: python manage.py runserver
+
+https://developer.github.com/v3/repos/hooks/
+https://developer.github.com/webhooks/creating/

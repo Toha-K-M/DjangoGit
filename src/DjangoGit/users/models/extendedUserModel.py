@@ -9,6 +9,7 @@ class GitProfile(models.Model):
     access_token = models.CharField(max_length=60, blank=True)
     token_type = models.CharField(max_length=30, blank=True)
     scope = models.CharField(max_length=50, blank=True)
+    git_username = models.CharField(max_length=100, blank=True)
 
 @receiver(post_save, sender=User)
 def create_user_git_profile(sender, instance, created, **kwargs):
