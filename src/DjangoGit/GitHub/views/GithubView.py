@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from DjangoGit.users.views import RegisterView
 import requests
 from django.http import HttpResponse
-from ..services import Gitoauth, GetGitRepos
+from ..services import Gitoauth, GetGitRepos, SaveSelectedRepo, CreateHook
 from ... import application_properties
+from ..models import GitRepo
 
 # Create your views here.
 def git_authorize(request):
@@ -19,20 +20,22 @@ def store_oauth(request):
 
 def public_repos(request):
     result, status_code = GetGitRepos.GetPublicRepos.execute(request, {'current_user':request.user})
-
+    print(request.user.gitprofile.access_token)
     if status_code == 401:
         return redirect('home')
     context = {
             'error_status_code': status_code,
             'data':result
         }
-    
     return render(request, 'GitHub/git_repositories.html', context)
 
 def select_repo(request):
-    print("entered")
-    selected_repo=request.POST.get("selected_repo"," ")
-    context = {
-        "data":selected_repo
-    }
-    return render(request, 'Github/selected_repositories.html', context)
+    selected_repo_name=request.POST.get("selected_repo_name","")
+    selected_repo_id = request.POST.get("selected_repo_id", "")
+    
+    success = CreateHook.execute(request, {'current_user':request.user,
+                                    'selected_repo_name':selected_repo_name})
+    if success:
+        SaveSelectedRepo.SaveRepo.execute(request, {'current_user':request.user,
+                                    'selected_repo_name':selected_repo_name, 'selected_repo_id':selected_repo_id})
+    return redirect('git_public_repos')

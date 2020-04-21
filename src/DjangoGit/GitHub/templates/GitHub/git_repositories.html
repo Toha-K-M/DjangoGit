@@ -20,11 +20,16 @@
             <th scope="row">{{forloop.counter}}</th>
             <td><a href={{item.html_url}} target="_blank" class="text-success">{{item.name}}</td>
             <td>
+              {% if item.isSelected %}
+                 <span class="text-info">Selected</span>
+              {% else %}
                 <form method="POST" action="/selected_repo/">
                 {% csrf_token %}
-                <input type="hidden" name="selected_repo" value="{{item}}">
+                <input type="hidden" name="selected_repo_name" value="{{item.name}}">
+                <input type="hidden" name="selected_repo_id" value="{{item.id}}">
                 <button class="btn btn-danger" type="submit">Select</button>
                 </form>
+              {% endif %}
             </td>
           </tr>
         {%endfor%}
