@@ -1,11 +1,11 @@
 DATABASE_HOST="localhost"
-DATABASE_NAME="test"
-DATABASE_USER ="test"
+DATABASE_NAME="django_git"
+DATABASE_USER ="django_git"
 DATABASE_PASSWORD = '1234'
 PORT='5433'
 
 # Ngrok
-forward_url = 'http://48ca8898.ngrok.io'
+forward_url = 'http://76af0ba9.ngrok.io'
 
 # Github App
 client_id="ddedbd985a4aa25ef959"

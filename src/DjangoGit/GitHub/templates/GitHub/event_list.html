@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    <title>EVENT LIST</title>
+{% endblock %}
+
+{% block body %}
+<table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Event</th>
+        <th scope="col">Repository</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for event in events %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>
+            {% if event.is_push %}
+                <span class="text-danger font-weight-bold">Push</span>
+                <br/>
+            {% elif event.is_pull_request %}
+                <span class="text-primary font-weight-bold">Pull Request</span>
+                <br/>
+            {% endif %}
+            {% if event.action %}
+            <span class="text-light font-weight-bold">{{event.action}}</span>
+            <br/>
+            {% endif %}
+
+            <small>{{event.created_at|date:'Y-m-d H:i' }}</small>
+        </td>
+        <td>
+            <span class="text-light">Git Repository ID: {{event.payload.repository.id}}</span><br/>
+            <a class="text-success" href={{event.payload.repository.html_url}} target="_blank">{{event.payload.repository.name}}</a>
+        </td>
+        <td>
+          {% if event.is_pull_request %}
+             <a href={{event.payload.pull_request.html_url}} target="_blank">{{event.payload.pull_request.html_url}}</a>
+          {% elif event.is_push %}
+            <a href={{event.payload.compare}} target="_blank" class="text-info">Compare</a>
+            <br/>
+            <span>Ref: {{event.payload.ref}}</span>
+          {% endif %}
+        </td>
+      </tr>
+    {%endfor%}
+    </tbody>
+</table>
+
+{% endblock %}

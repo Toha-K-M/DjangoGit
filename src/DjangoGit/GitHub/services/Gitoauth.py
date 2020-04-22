@@ -42,11 +42,12 @@ class GetAccessToken(Service):
         try:
             current_user = self.files.get("current_user")
 
-            def save_current_user_oauth(response, git_username):
+            def save_current_user_oauth(response, git_username, git_id):
                 current_user.gitprofile.access_token = response['access_token']
                 current_user.gitprofile.token_type = response['token_type']  
                 current_user.gitprofile.scope = response['scope']    
                 current_user.gitprofile.git_username = git_username  
+                current_user.gitprofile.git_id = git_id
                 current_user.save()
 
             url = "https://github.com/login/oauth/access_token"
@@ -63,7 +64,7 @@ class GetAccessToken(Service):
             access_token = response['access_token']
             print(response['access_token'])
             git_user = requests.get(api, headers={'Authorization': 'token '+access_token}).json()
-            save_current_user_oauth(response, git_user['login'])
+            save_current_user_oauth(response, git_user['login'], git_user['id'])
             
             return True
 

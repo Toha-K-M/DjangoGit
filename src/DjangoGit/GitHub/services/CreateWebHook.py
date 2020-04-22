@@ -30,7 +30,7 @@ class CreateHook(Service):
                             "pull_request",
                         ],
                         "config": {
-                            "url": application_properties.base_api+"/webhook/",
+                            "url": application_properties.forward_url+"/webhook/",
                             "content_type": "json",
                             "insecure_ssl": "0"
                         }
