@@ -4,7 +4,6 @@ import requests
 from django.http import HttpResponse
 from ..services import Gitoauth, GetGitRepos, SaveSelectedRepo, CreateHook
 from ... import application_properties
-from ..models import GitRepo
 
 # Create your views here.
 def git_authorize(request):
@@ -32,7 +31,6 @@ def public_repos(request):
 def select_repo(request):
     selected_repo_name=request.POST.get("selected_repo_name","")
     selected_repo_id = request.POST.get("selected_repo_id", "")
-    #test
     success = CreateHook.execute(request, {'current_user':request.user,
                                     'selected_repo_name':selected_repo_name})
     if success:

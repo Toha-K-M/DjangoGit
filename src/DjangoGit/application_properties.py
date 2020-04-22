@@ -5,7 +5,7 @@ DATABASE_PASSWORD = '1234'
 PORT='5433'
 
 # Ngrok
-forward_url = 'http://3c55e271.ngrok.io'
+forward_url = 'http://48ca8898.ngrok.io'
 
 # Github App
 client_id="ddedbd985a4aa25ef959"

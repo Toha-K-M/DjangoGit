@@ -1,1 +1,2 @@
-from .GitModels import GitRepo
+from .GitRepo import GitRepo
+from .GitEvents import *

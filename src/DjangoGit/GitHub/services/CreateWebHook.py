@@ -21,6 +21,7 @@ class CreateHook(Service):
 
             api = application_properties.base_api+'/repos/'+git_username+'/'+repo_name+'/hooks'
             access_token = current_user.gitprofile.access_token
+            print( application_properties.base_api+"/webhook/")
             payload = {
                         "name": "web",
                         "active": True,
