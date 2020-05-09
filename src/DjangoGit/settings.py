@@ -85,7 +85,6 @@ DATABASES = {
 		'USER': application_properties.DATABASE_USER,
 		'PASSWORD': application_properties.DATABASE_PASSWORD,
 		'HOST': application_properties.DATABASE_HOST,
-        'PORT': application_properties.PORT
     }
 }
 
