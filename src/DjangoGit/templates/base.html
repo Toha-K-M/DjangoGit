@@ -21,6 +21,7 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
+              {% if user.is_authenticated %}
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item ml-5">
                   <a class="nav-link" href="/git_repositories/">GitHub Public Repositories <span class="sr-only">(current)</span></a>
@@ -29,6 +30,7 @@
                   <a class="nav-link" href="/event_list/">Event List</a>
                 </li>
               </ul>
+              {% endif %}
               <span class="navbar-text">
                 {% if user.is_authenticated %}
                 <form action="/users/logout">
