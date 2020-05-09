@@ -76,8 +76,8 @@ python manage.py migrate
 download Ngrok from : [https://dashboard.ngrok.com/get-started/setup](https://dashboard.ngrok.com/get-started/setup)
 Ngrok is needed for forwarding your localhost endpoint to live server.
 
-A. Unzip the donwloaded file.  
-B. From the extracted directory:  
+**A.** Unzip the donwloaded file.  
+**B.** From the extracted directory:  
 for **Windows** using cmd run:  
 ```
 ngrok http 8000
@@ -91,8 +91,8 @@ Ngrok terminal will open and you will find the line:
 ```
 Forwarding                    http://<###>.ngrok.io -> http://localhost:8000
 ```
-C. Now copy the given link(example: "http://<###>.ngrok.io") and go to **src/DjangoGit** and open **application_properties.py**.  
-D. Here assign the copied link to **forwarded_url** variable.   
+**C.** Now copy the given link(example: "http://<###>.ngrok.io") and go to **src/DjangoGit** and open **application_properties.py**.  
+**D.** Here assign the copied link to **forwarded_url** variable.   
 
 ### Run Server:
 
